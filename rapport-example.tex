@@ -1,0 +1,707 @@
+\documentclass{rapport}
+\usepackage[utf8]{inputenc}
+
+\usepackage{pifont} % Pour les symboles appelés par la macro \ding
+\usepackage{url} % Comme son nom l'indique, pour les url...
+
+\usetikzlibrary{positioning} % Bibliothèque tikz pour positionner des nœuds relativement à d'autres
+
+\usepackage[colorlinks, citecolor=red!60!green, linkcolor=blue!60!green, urlcolor=magenta]{hyperref} % Pour que les liens soient cliquables. Les options permettent de mettre les liens en couleur.
+
+\usepackage{algorithm}
+\usepackage{algo}
+\usepackage{colorationSyntaxique}
+
+
+% Pour un rapport en français 
+\usepackage[francais]{babel} % Commenter pour un rapport en anglais
+\renewcommand\bibsection{\section*{Bibliographie}} % Commenter pour un rapport en anglais
+
+% \englishTitlePage % Décommenter pour une page de titre en anglais
+
+
+\pagestyle{fancy}
+\renewcommand{\sectionmark}[1]{\markboth{\thesection.\ #1}{}}
+\fancyfoot{}
+
+\fancyhead[LE]{\textsl{\leftmark}}
+\fancyhead[RE, LO]{\textbf{\thepage}}
+\fancyhead[RO]{\textsl{\rightmark}}
+
+\def\Latex{\LaTeX\xspace}
+\def\etc{\textit{etc.}\xspace}
+
+
+
+\title{Titre de mon super travail}
+\author{Me, Myself, I}
+\supervisor{Toto, Tata, Tutu}
+\date{Second semestre de l'année 2021-2022}
+
+% \universityname{Université Côte d'Azur} % Nom de l'université.
+% \type{TER} % Type de document
+% \formation{Master Informatique} % Nom de la formation
+
+% Retrouver les autres options possibles dans le document rapport.pdf
+
+\begin{document}
+
+  \maketitle
+
+  \begin{abstract}
+    Ce document est un exemple pour vos futurs rapports de projet, TER, stages\dots Il vous donne quelques conseils et consignes pour la rédaction, un plan suggéré pour votre rapport de TER ainsi que des exemples d'utilisations de \Latex. Vous pouvez trouver de très nombreux tutoriels pour apprendre à écrire un document avec \Latex notamment \url{https://www.latex-project.org/help/documentation/} et bien entendu sur Stack Overflow \url{https://tex.stackexchange.com/}.
+  
+    Ce document a été rédigé à quatre mains, par \href{mailto:marie.pelleau@univ-cotedazur.fr}{Marie Pelleau} et \href{mailto:sid.touati@univ-cotedazur.fr}{Sid Touati}.
+  \end{abstract}
+
+  \clearpage
+  \tableofcontents
+
+  \clearpage
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%
+  % Consignes et conseils %
+  %%%%%%%%%%%%%%%%%%%%%%%%%
+  \part{Quelques consignes et conseils}
+
+    \section{Introduction}
+    
+      Vous êtes arrivés en deuxième cycle ou finissez votre cursus universitaire de Master. Durant vos études supérieures, vous avez appris des notions fondamentales en informatique, ainsi que des notions techniques matérielles et logicielles. Vos études ou projets se terminent avec la rédaction d'un rapport final, qui donnera un aperçu de votre niveau et de vos compétences. Il serait dommage de finir avec un rapport mal rédigé. D'autant plus si vous rédigez votre rapport de stage qui restera dans votre dossier scolaire comme l'ultime effort de votre travail. Ce document vous donne quelques conseils pour soigner la forme de votre rapport, tant du point de vue de la structure que de la rédaction. Un rapport impeccable donne de l'élégance à votre esprit.
+    
+    \section{L'outil d'édition: \Latex fortement recommandé} 
+      
+      Dans toutes les disciplines en sciences dites dures (physique, mathématiques, informatique, astronomie, électronique, chimie, astrophysique, \etc), l'outil indispensable pour la rédaction scientifique reste \Latex. C'est non seulement une question de tradition et de standard, mais aussi pour des question pratiques : \Latex permet d'éditer des documents clairs, propres et pérennes dans le temps. Il offre beaucoup de possibilités pour configurer et manipuler le texte scientifique, les formules, les schémas, et divers autres objets. Un document \Latex se reconnait visuellement, et donne dès le départ une crédibilité initiale à son auteur.
+      
+      Les autres outils comme Word et OpenOffice sont conçus pour la bureautique grand public. Ils sont néanmoins utilisés pour la rédaction scientifique dans les disciplines de sciences de la vie et les sciences humaines. Ce sont des logiciels qui permettent de visualiser le rendu final des documents pendant la rédaction, de faciliter une édition collaborative, de versioner les documents, de suivre les modifications, \etc Ils sont destinés aux personnes qui ne maîtrisent pas les outils informatiques avancés, ce qui n'est bien entendu pas votre cas (enfin nous l'espérons). Des outils comme Word et assimilés ne permettent pas hélas de créer des documents pérennes comme \Latex (les changements de version du logiciel Word modifient souvent le rendu visuel du document) et leur allure visuelle ne donne pas le même effet chez les scientifiques. Un document Word en science est utilisé pour la bureautique essentiellement, alors que \Latex est utilisé pour rédiger les articles, thèses, livres et rapports.
+      
+    \section{Structure et plan de votre rapport} 
+    
+      Avant de rédiger votre rapport, pensez d'abord à son architecture (plan). C'est la colonne vertébrale de votre document sur laquelle viendront se greffer les différentes parties. Rédiger un rapport sans penser initialement à sa structure donnerait un document bancal, et cela se ressentirait à la lecture. Les sections qui doivent apparaître dans tous les rapports sont: le résumé, l'introduction, l'état de l'art (et donc la bibliographie) et la conclusion. À ces sections standards, vous ajouterez vos propres sections en lien avec votre stage: description du problème, solution proposée, expérimentation, analyse et perspectives, \etc Il est fortement recommandé de donner des noms explicites à vos sections, afin que la table des matières soit claire et personnalisée. %Par exemple, une section qui s'appelle {\bf Description du problème} est banale, elle serait présente dans n'importe quel rapport. Il vaudrait mieux l'appeler {\bf Description du problème de \etc} en lui donnant un nom plus explicite. Idem pour la section  {\bf Expérience}, il serait mieux de l'appeler avec un titre plus personnalisé.  
+      Les sections suivantes décrivent le contenu attendu dans chaque section standard. 
+      
+      \subsection{Le résumé: donner envie de lire votre rapport} 
+        C'est un paragraphe destiné à donner un aperçu du contenu de votre rapport: quel domaine, quelle problématique, quelle contribution. C'est l'équivalent du {\it teaser} pour les films, dans le sens où il doit être assez clair pour que le lecteur ait une idée du contenu et de la contribution, sans donner tous les détails importants pour  donner envie de lire le rapport.
+      
+      \subsection{L'introduction: c'est l'ouverture} 
+        Vous avez passé plusieurs mois à travailler sur un sujet précis durant votre stage, ou à vous initier à un sujet de recherche. La section d'introduction dessine le tableau général du domaine dans lequel vous avez travaillé, son importance, la motivation derrière le sujet de votre stage. Il y a des domaines plus simples à décrire car ils ont un impact direct sur la vie sociale et économique des gens. D'autres domaines sont plus compliqués à motiver ou à expliquer, la section d'introduction est présente pour placer votre sujet de stage dans les galaxies des sciences, branches, spécialités, sujets, \etc C'est comme un astre qu'il faudra placer sur la carte du ciel.
+        
+        À la fin de votre introduction, il serait bien de décrire succinctement les différents chapitres (ou sections) de votre rapport, avec le lien qui les rassemblent. Aussi, dans votre texte du chapitre, il est bien de décrire succinctement les différentes sections (ou sous sections) avec leur lien. Cela évitera au lecteur de voir votre rapport comme un catalogue qui contient une succession de sections sans ciment apparent.
+
+      \subsection{L'état de l'art: votre esprit de synthèse} 
+        Dans tout stage ou travail de mémoire, il faut passer du temps à lire et à étudier ce qui a été publié ailleurs, en lien avec votre sujet. Quel dommage de constater que votre sujet ait déjà été abordé par d'autres équipes de recherche bien avant vous, sans que vous soyez au courant ! La recherche bibliographique est obligatoire dans tout travail de recherche. Parfois, plusieurs équipes ont travaillé exactement sur le même sujet mais sans se rendre compte car ils ont utilisé des termes techniques différents, pensant ainsi que les sujets sont différents. C'est pour cela que l'abstraction mathématique ou formelle des problèmes est parfois nécessaire afin de prendre du recul, et pouvoir communiquer avec d'autres chercheurs dans des domaines adjacents ou éloignés.
+
+        La section de l'état de l'art contient votre description des travaux en lien avec votre travail. Il ne s'agit pas juste de remplissage et de copier/coller des résumés des articles que vous auriez piochés ici et là. Il s'agit d'une section qui contient votre propre synthèse et critique de vos lectures. Cette section fait référence à plusieurs documents scientifiques listés en fin de votre rapport, appelée bibliographie. 
+
+      \subsection{La bibliographie: à choisir avec soin} 
+        La bibliographie est la section en fin de rapport qui contient la liste de tous les documents que vous référencez. Les documents que vous référencez doivent être choisis avec soin, dans le sens où il faut lister des documents crédibles et consultables, n'importe quelle source n'a pas sa place dans un document scientifique. Ainsi, les documents relus par des commissions de spécialiste (articles parus dans des revues scientifiques ou conférences, thèses) sont plus crédibles que des documents de presse (articles dans des revues grand public, rapports techniques, blogs, sites internet). Par ailleurs, lorsque vous référencez un document, donnez tous les détails qui permettent au lecteur de le retrouver avec précision : noms et prénoms des auteurs, titre du document, éditeur, date de parution, lieu de la conférence, numéro ISBN éventuellement, nom de l'université si c'est une thèse de doctorat, \etc 
+        
+        Aussi, il faut que le document référencé soit pérenne, c'est-à-dire qu'il ne risque pas de disparaitre dans les prochaines années : par exemple, un lien vers une obscure page web n'est pas une bonne référence bibliographique, car une telle page peut disparaitre facilement et rapidement rendant votre référence caduque. Idem pour un document qui n'a jamais été édité, ou n'est présent dans aucun centre de documentation hormis votre bureau. Lorsque vous rédigez votre rapport, pensez au lecteur qui imprimera votre rapport  5 ou 10 ans après vous. 
+ 
+      \subsection{La conclusion: la section que tout le monde lira} 
+        Souvent, les étudiants de master sont exténués lorsqu'ils arrivent à la fin du rapport pour rédiger la conclusion. Comme constaté régulièrement, cette section est négligée malheureusement, ou l'étudiant se contente de rappeler le contenu de son rapport. Or, la section de conclusion est celle que tout le monde lira, car elle est censée contenir votre dernier message important. La majorité des lecteurs n'ont probablement pas compris les détails de votre travail, ou ne peuvent pas s'assurer de la pertinence de votre contribution. La section de la conclusion doit être rédigée comme si c'était un testament : en tant qu'expert de votre sujet, quel est votre message à la communauté ? Si votre conclusion ressemble à votre résumé de départ, si elle est rédigée avec négligence, votre rapport se terminera sans souffle, comme si c'était un fardeau dont vous souhaitez vous en débarrasser. Or si vous avez beaucoup travaillé dans votre stage, la conclusion est la finition qui laissera la bonne impression dans les esprits. À titre d'indication, la conclusion contiendrait le rappel du chemin parcouru dans votre rapport, un rappel des résultats, les perspectives et surtout votre opinion personnelle et réfléchie.
+        
+      \subsection{Plan suggéré pour le TER}
+        
+        Pour votre rapport de TER le plan suggéré est le suivant :
+        \begin{verbatim}\section{Introduction}
+  \subsection{Présentation du groupe}
+  \subsection{Présentation du sujet}
+\section{État de l'art}
+\section{Travail effectué}
+\section{Gestion de projet}
+\section{Conclusion}
+\section{Perspectives et réflexions personnelles}\end{verbatim}
+    
+    \section{Quelques consignes de rédaction} 
+      Bien entendu, les fautes de frappe ou de langue dans les rapports donnent un très mauvais effet. Vous risquez d'être mal jugés à cause d'un défaut d'orthographe ou de syntaxe. Il est recommandé de se faire relire par une personne tierce avant de rendre votre rapport. Aussi, par expérience, lire un rapport imprimé sur papier procure plus de sérénité et de concentration qu'un rapport affiché sur écran. Ci-dessous quelques conseils supplémentaires pour améliorer la forme de votre rédaction, pour éviter des maladresses constatées régulièrement dans les rapports d'étudiants.
+      
+      \subsection{La typographie}
+        Chaque langue a ses propres règles de typographie qui définissent la façon d'espacer les caractères, de les mettre en relief, d'utiliser la ponctuation, ou de choix de police de caractères. La langue française diffère de la langue anglaise sur plusieurs règles de typographie, étudiez-les. Ci-dessous quelques exemples non exhaustifs:
+        \begin{itemize}
+          \item Les guillemets en français sont \og{} \dots \fg{} et non pas `` \dots " comme en anglais;
+          \item Lorsque vous choisissez une police de caractère spéciale pour certains titres ou étiquettes, maintenez exactement la même dans tout votre document. Par exemple si vous décidez d'écrire les noms de fonction  comme ceci \texttt{MaFonction} et les noms de variables comme cela \texttt{\it MaVariable}, maintenez cette forme identique dans tout votre document,  ne changez pas d'une section à une autre afin de ne pas perturber le lecteur avec des transformations de forme ici et là; Idem pour les noms des logiciels,  la police de caractères utilisée pour du code informatique, \etc
+           \item Faîtes usage des caractères gras avec parcimonie, car ils attirent le regard. Outre les titres des chapitres, sections, sous sections, \etc vous pouvez utiliser les caractères gras pour désigner la première définition d'un terme ou notion importante. Il est aussi possible d'utiliser la forme italique à la place des caractères gras;
+          \item Si vous rédigez votre rapport en français, il est d'usage de mettre les termes anglais ou latin en italique pour les distinguer des termes en français. 
+        \end{itemize}
+      
+      \subsection{Les références} 
+        Votre rapport contient des figures, des tables, des algorithmes, des sections, des références bibliographiques, \etc Ces objets sont référencés dans votre texte avec des numéros (compteurs) par exemple comme ceci: \og{}  dans la table~2, nous listons les différents cas\dots Dans la figure~4.2, nous illustrons les différentes étapes\dots nous aborderons cette question dans la section~5\fg{}. Ci-dessous quelques conseils concernant l'usage des références:
+        \begin{itemize}
+          \item Concernant les références bibliographiques, une règle est qu'elles puissent être supprimées sans que cela empêche de lire le texte. Par exemple, on écrira: \og{} La méthode PERT~[4] permet \dots \fg{}  et non pas \og{} La méthode [4] permet \dots\fg{}; 
+          \item Lorsqu'un article contient plusieurs auteurs, on écrira le nom du premier auteur suivi de l'abréviation latine {\it et al.} Par exemple, on écrira: \og{} L'article de Dupont {\it et al.} [14] a décrit \dots \fg{}  et non pas \og{} L'article de Pierre, Paul, Sara et Jacques [4] a décrit \dots\fg{}, ni \og{} L'article [4] a décrit \dots\fg{}.  Une exception est toutefois faite pour les articles à deux auteurs seulement, que l'on peut citer comme  \og{} L'article de Simon et Garfunkel [7] a décrit \dots\fg{};
+          \item Pour toutes les références, il faut mettre une espace insécable entre l'étiquette et le numéro, car parfois l'outil d'édition sépare l'étiquette du numéro qui passe à la ligne suivante comme ceci : \hfill\og{} \dots. La figure \\
+            4 illustre \dots \fg{}. Il faut éviter cette situation désagréable en mettant une espace insécable pour imposer à l'outil d'édition une non séparation entre l'étiquette et le numéro qui la suit. En \Latex, une espace insécable s'obtient avec le caractère tilde \raisebox{0.75ex}{\texttildelow}.
+        \end{itemize}
+      
+      \subsection{Format et usage des couleurs pour les figures, graphiques,  images, photos et prises d'écran} 
+        Dans un document, le format privilégié des figures, graphiques et images est le format vectoriel et non pas pixelisé. L'avantage du format vectoriel est qu'il peut être agrandi ou rétréci sans subir un effet de pixelisation ou de flou, qui se voit hélas bien lorsqu'on imprime le document, ou lorsqu'on fait une projection vidéo. Cependant dans certaines situations, comme la prise de photos et les prises d'écran, le seul format possible est le format pixelisé. Il faut s'assurer d'une résolution suffisante dans ce cas.
+        
+        Un autre point important est l'usage des couleurs. Il faut privilégier l'usage du noir et blanc (ou échelle de gris) dans toutes les figures et schémas pour deux principales raisons:
+        \begin{enumerate}
+          \item  Il faut penser aux lecteurs daltoniens qui ne peuvent hélas pas comprendre votre document coloré;
+          \item Tous les lecteurs n'ont pas accès à une imprimante couleur, ce sont les imprimantes en noir et blanc qui sont répandues.
+        \end{enumerate}
+        
+        Ainsi pour vos schémas et graphiques, assurez vous qu'ils soient lisibles de toutes et tous en utilisant différents types de lignes (continue, en pointillés). Pour passez votre document en nuances de gris facilement, ajoutez \verb:\selectcolormodel{gray}: dans le préambule de votre document (avant \verb:\begin{document}:).
+        
+    \section{L'écriture formelle des idées} 
+      L'écriture littéraire est une source d'ambiguïtés et d'interprétations différentes d'un lecteur à un autre. Lorsque vous souhaitez préciser et clarifier vos idées, il est nécessaire d'adopter une rédaction formelle. Le langage précis universel est le langage mathématique, que vous devez privilégier si possible. D'une part cela permet de s'assurer que le lecteur peut comprendre avec précision ce que vous décrivez. D'autre part, cela permet de reproduire votre travail par une autre équipe de recherche qui souhaiterait reprendre votre sujet, ce qui est une vertu fondamentale dans le travail scientifique (dans l'idéal, chaque résultat scientifique peut être reproduit par autrui).  Ainsi, il est bon, lorsque la situation l'exige, de définir formellement les notions, termes, et problèmes avec une écriture mathématique. Cela permettrait de les lier à des lemmes, théorèmes, \etc 
+
+      La même écriture formelle peut être adoptée pour les algorithmes. Au lieu d'écrire du code dans un langage de programmation donné, il est préférable d'écrire un algorithme clair, qui peut être codé dans n'importe quel langage de programmation par la suite, et aussi qui peut être analysé plus précisément (complexité algorithmique, preuve de correction, \etc).
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%
+  % Exemples              %
+  %%%%%%%%%%%%%%%%%%%%%%%%%
+  
+  \pageblanche
+  \part{Exemples d'utilisation de \Latex}
+  
+    Dans cette partie, quelques exemples d'utilisation de \Latex vous sont donnés.
+
+    \section{Organisation du document}
+      
+      Un document est séparés en sections, on utilise la macro \verb"\section{}" pour définir une nouvelle section dont le nom est passé entre accolades. Une section peut-être découpée en sous-sections avec la macro \verb+\subsection{}+ qui elles même peuvent être découpées en sous-sous-section \verb-\subsubsection{}-. Si vous souhaitez avoir un niveau supplémentaire de découpage, vous pouvez utilisez la macro \verb!\paragraph{}!.
+      
+      À la fin de l'introduction il est toujours appréciable pour le lecteur d'avoir l'organisation du document : La section xx présente l'état de l'art de blablabla. Puis le travail effectué est présenté section yy. Les références sont expliquées dans la section \ref{sec:ref}.
+      
+      Vous pouvez ajouter une table des matières à l'aide de la macro \verb#\tableofcontents#. Notez que normalement le nom de la table des matières dépend du language du document défini lors du chargement du paquet \verb'babel'~: \verb&\usepackage[francais]{babel}&. Le nom peut aussi être modifié avec le commande~: \verb@\renewcommand\contentsname{Nouveau nom}@.
+      
+      La table des matières est généralement en tout début de document après un résumé.
+
+      Vous pouvez aussi ajouter la listes de figures et celle des tableaux avec respectivement les macros \verb$\listoffigures$ et \verb=\listoftables=.
+
+    \section{Entête et pied de page}
+      Les entêtes et pied de pages ont été modifiés à l'aide du paquet \verb:fancyhdr:. 
+      \begin{verbatim}
+\fancyfoot{} % Pied de page vide
+
+\fancyhead[LE]{\textsl{\leftmark}} % Entête à gauche sur les pages paires 
+% (left even LE) nom de la section courante
+\fancyhead[RE, LO]{\textbf{\thepage}} % Entête à droite sur les pages paires 
+% (right even RE) et à gauche sur les pages impaires (left odd LO) le numéro
+% de la page courante
+\fancyhead[RO]{\textsl{\rightmark}} % Entête à droite sur les pages impaires 
+% (right odd RO) nom de la sous-section courante
+\end{verbatim}
+      
+    \section{Mise en forme du texte}
+      
+      \subsection{Taille du texte}
+        
+        Pour changer la taille de la police vous pouvez utilisez les macros suivantes :
+        
+        \begin{tabular}{ll}
+          \verb|{\small petit}| & {\small petit}\\
+          \verb|{\footnotesize plus petit}| & {\footnotesize plus petit}\\
+          \verb|{\scriptsize encore plus petit}| & {\scriptsize encore plus petit}\\
+          \verb|{\tiny très petit}| & {\tiny très petit}\\
+          \verb|{\large grand}| & {\large grand}\\
+          \verb|{\Large plus grand}| & {\Large plus grand}\\
+          \verb|{\LARGE encore plus grand}| & {\LARGE encore plus grand}\\
+          \verb|{\huge très grand}| & {\huge très grand}\\
+          \verb|{\Huge très très grand}| & {\Huge très très grand}
+        \end{tabular}
+        
+      \subsection{Forme, graisse et police du texte}
+        Vous pouvez changer la forme et la graisse de la police ou la police elle-même, en utilisant les macros suivantes :
+        
+        \begin{tabular}{ll}
+          \verb|{\bf gras}| ou \verb|\textbf{\dots}| & {\bf gras} ou \textbf{\dots}\\
+          \verb|{\it italique}| ou \verb|\textit{\dots}| & {\it italique} ou \textit{\dots}\\
+          \verb|{\sc petites capitales}| ou \verb|\textsc{\dots}| & {\sc petites capitales} ou \textsc{\dots}\\
+          \verb|{\em emphase}| ou \verb|\emph{\dots}| & {\em emphase} ou \emph{\dots}\\
+          \verb|{\tt courrier}| ou \verb|\texttt{\dots}| & {\tt courrier} ou \texttt{\dots}\\
+          \verb|{\sf sans sérif}| ou \verb|\textsf{\dots}| & {\sf sans sérif} ou \textsf{\dots}
+        \end{tabular}
+        
+      \subsection{Couleur}
+        
+        Vous pouvez mettre du texte en couleur, en \textcolor{red}{rouge}, \textcolor{orange}{orange}, \textcolor{yellow}{jaune}, \textcolor{green}{vert}, \textcolor{blue}{bleu}\etc de très nombreuses couleurs existent.
+        
+        Vous pouvez aussi mélanger deux couleurs \texttt{couleur1!pourcentage!couleur2}, le pourcentage correspond au pourcentage pour la première couleur et la deuxième couleur complète pour arriver à 100. Si aucune deuxième couleur n'est précisée alors le blanc est utilisé. Texte en \textcolor{green!40!black}{vert foncé}, \textcolor{green!60}{vert clair}, \textcolor{blue!50!red}{violet}.
+        
+        Vous pouvez aussi définir vos propres couleurs avec la macro \verb|\definecolor|.
+        
+        \definecolor{bleu}{rgb}{0, 0.6, 0.8}
+        \definecolor{bleu2}{RGB}{0, 153, 204}
+        
+        Texte en \textcolor{bleu}{bleu} défini par des valeurs rgb en pourcentage comprises entre 0 et 1, et en \textcolor{bleu2}{bleu} défini par des valeurs rgb comprises entre 0 et 255, deux couleurs qui ont été définies par :
+        
+        \begin{verbatim}
+\definecolor{bleu}{rgb}{0, 0.6, 0.8}
+\definecolor{bleu2}{RGB}{0, 153, 204}\end{verbatim}
+        
+        \colorlet{rouge}{red}
+        \colorlet{vert sapin}{green!40!black}
+
+        Vous pouvez aussi définir des couleurs à partir d'autres couleurs, comme le \textcolor{rouge}{rouge} ou le \textcolor{vert sapin}{vert sapin} avec la macro \verb|\colorlet|.
+        \begin{verbatim}
+\colorlet{rouge}{red}
+\colorlet{vert sapin}{green!40!black}\end{verbatim}
+    
+    
+    \section{Listes}
+      
+      \subsection{Listes à puces}
+        Avec \Latex on peut faire des listes à puces avec l'environnement \verb|itemize| :
+        
+        \begin{itemize}
+          \item premier élément
+          \item deuxième élément
+          \begin{itemize}
+            \item premier sous-élément
+            \begin{itemize}
+              \item Bla bla bla
+              \item Bli bli bli
+            \end{itemize}
+            \item deuxième sous-élément
+          \end{itemize}
+          \item troisième élément
+        \end{itemize}
+        
+        On peut changer ponctuellement le type de puces en ajoutant l'option \verb|label| à la liste à puces.
+        
+        \begin{itemize}[label = \ding{72}]
+          \item premier élément
+          \item deuxième élément
+          \begin{itemize}[label = \textcolor{magenta}{\ding{95}}]
+            \item premier sous-élément
+            \begin{itemize}
+              \item Bla bla bla
+              \item Bli bli bli
+            \end{itemize}
+            \item deuxième sous-élément
+          \end{itemize}
+          \item troisième élément
+        \end{itemize}
+        
+        Pour changer le type de puces à toutes les listes à puces, il suffit de redéfinir la macro \verb|\labelitemi| pour le premier niveau, \verb|\labelitemii| pour le deuxième, \verb|\labelitemiii| pour le troisième, et  \verb|\labelitemiiii| pour le quatrième.
+        
+        \begin{verbatim}
+\renewcommand{\labelitemi}{\textcolor{bleu}{\ding{43}}}\end{verbatim}
+        
+      \subsection{Listes ordonnées}
+        Pour les listes ordonnées il faut utiliser l'environnement \verb|enumerate| :
+        
+        \begin{enumerate}
+          \item premier élément
+          \item deuxième élément
+          \begin{enumerate}
+            \item premier sous-élément
+            \begin{enumerate}
+              \item Bla bla bla
+              \item Bli bli bli
+            \end{enumerate}
+            \item deuxième sous-élément
+          \end{enumerate}
+          \item troisième élément
+        \end{enumerate}
+        
+        De même que pour les listes à puces, il suffit d'ajouter l'option \verb|label| pour modifier ponctuellement le type énuméré :
+        
+        \begin{enumerate}[label=\Roman* \ding{228}]
+          \item premier élément
+          \item deuxième élément
+          \begin{enumerate}[label=\arabic*~:]
+            \item premier sous-élément
+            \begin{enumerate}[label=\alph*.]
+              \item Bla bla bla
+              \item Bli bli bli
+            \end{enumerate}
+            \item deuxième sous-élément
+          \end{enumerate}
+          \item troisième élément
+        \end{enumerate}
+        
+        \begin{enumerate}[label=\textcolor{magenta}{\Alph*)}]
+          \item premier élément
+          \item deuxième élément
+          \begin{enumerate}[label=(\textcolor{bleu}{\roman*})]
+            \item premier sous-élément
+            \begin{itemize}
+              \item Bla bla bla
+              \item Bli bli bli
+            \end{itemize}
+            \item deuxième sous-élément
+          \end{enumerate}
+          \item troisième élément
+        \end{enumerate}
+        
+        Pour effectuer ce changement pour toutes les listes ordonnées, il suffit de redéfinir la macro \verb|\labelenumi| pour le premier niveau, \verb|\labelenumii| pour le deuxième, \etc
+        
+        \begin{verbatim}
+\renewcommand{\labelenumi}{\Alph*)}\end{verbatim}
+        
+      \subsection{Descriptions}
+        
+        On peut aussi faire une liste descriptive avec l'environnement \verb|description| :
+        
+        \begin{description}
+          \item[Premier] élément
+          \item[Deuxième] élément
+          \item[Troisième] élément
+          \item[Description longue] élément
+        \end{description}
+        
+    \section{Citations et références\label{sec:cite}}
+      \subsection{Bibliographies}
+        La gestion de la bibliographie est une des capacités les plus appréciées de \Latex. Cette gestion ne se fait pas directement par le langage, mais par un système tierce : Bib\TeX.
+        
+        Les entrées bibliographiques sont stockées dans un fichier \emph{.bib} et insérées dans le document à l'aide de la macros \verb+\cite+ ou les macros \verb|\citet| et \verb@\citep@ lorsque l'on utilise le paquet \verb-natbib-. Il est ainsi très facile de faire une référence bibliographique dans le texte, comme pour l'article \citet{Lamport1986} ou bien en le citant hors de la phrase \citep{Lamport1986}.  Notez qu'il est possible de faire référence à plusieurs articles \citep{GoossensMS1994, GoossensRM1997, Klockl2000, Dongen2012}, à des chapitres de livres \citep[chap 2]{Gratzer2014} ou renvoyer le lecteur \citep[voir ][]{Datta2017}.
+        
+        Les références sont affichées en fin de document, automatiquement mises en forme d'après le style que vous avez spécifié (pour ce document, il s'agit du style \emph{apalike-fr}). 
+        
+      \subsection{Références\label{sec:ref}}
+        En \Latex, la position des tableaux, graphiques, \etc dans le texte a généralement peu d'importance étant donné que l'on s'y réfère à l'aide de références croisées. Ainsi, ces éléments sont placés dans ce que l'on nomme des flottants, c'est-à-dire des éléments qui ne sont pas ancrés dans le texte, mais qui sont déplacés lors de la compilation à un endroit qui semble le plus adapté (souvent le haut des pages). Ne cherchez donc pas en \Latex---~comme vous le faites très certainement dans un éditeur de texte~--- à placer les éléments graphiques aussitôt à la suite du paragraphe qui y fait référence, mais laissez le système le placer et faîtes y explicitement référence à l'aide de \verb|\label| et \verb|\ref|.
+        
+        On ajoute \verb|\label{etq}| dans la légende de la figure ou du tableau, \etc et \verb"\ref{etq}" là où l'on y fait référence. Nous sommes ici dans une sous-section de la section \ref{sec:cite}. Nous reparlerons des tableaux et figures plus en détail dans la section \ref{sec:tabfig}.
+        
+    \section{Théorèmes}
+      
+      Le package \verb!amsthm! permet de définir des styles pour les théorèmes. Il existe trois styles :
+      
+      \begin{itemize}
+        \item \verb|plain| : pour les théorèmes, lemmes, corollaires, conjectures
+        \item \verb|definition| : pour les définitions, exemples, problèmes
+        \item \verb|remark| : pour les remarques, notes, conclusions
+      \end{itemize}
+      
+      Avant de définir de nouveaux théorèmes on doit donc donner leurs style avec la macro \verb|\theoremstyle{style}|.
+      Par exemple on définit les théorèmes correspondant à des définitions et des exemples avec les lignes suivantes : 
+      
+      \begin{verbatim}
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}
+\newtheorem{exemple}{Exemple}\end{verbatim}
+      
+      Et pour les remarques avec les lignes suivantes : 
+      
+      \begin{verbatim}
+\theoremstyle{remark}
+\newtheorem*{remarque}{Remarque}\end{verbatim}
+            
+      \theoremstyle{definition}
+      \newtheorem{definition}{Définition}
+      \newtheorem{exemple}{Exemple}
+      \theoremstyle{remark}
+      \newtheorem*{remarque}{Remarque}
+      
+      \begin{definition}[Graphe]
+        Un \emph{graphe} est un couple $G = (V, E)$ comprenant
+        \begin{itemize}
+          \item $V$ un ensemble de sommets, 
+          \item et $E \subseteq \{\{x, y\}\ |\ (x, y) \in V^2 \wedge x \neq y\}$ un ensemble d'arêtes.
+        \end{itemize}
+      \end{definition}
+      
+      \begin{exemple}[Graphe quelconque]
+        Soit $V = \{1, 2, 3\}$ et $E = \{\{1, 2\}, \{1, 3\}\}$. Le couple $(V, E)$ est un \emph{graphe}.
+      \end{exemple}
+      
+      \begin{remarque}
+        Notez que les définitions et les exemples ont leur propre numérotation et que la remarque n'est pas numérotée car on a mis \verb|*| lors de la définition des remarques.
+      \end{remarque}
+
+    \section{Tables et figures\label{sec:tabfig}}
+
+      Pour insérer des figures dans votre document, vous pouvez utiliser une image en png, jpg, eps, \etc et l'inclure avec la macro \verb|\includegraphics| comme pour le figure \ref{fig:logo}. Vous pouvez aussi la créer en utiliser l'environnement \verb|tikzpicture| comme pour les figures \ref{fig:tikz} et \ref{fig:sort}. Le manuel \href{http://math.et.info.free.fr/TikZ/}{TikZ pour L'impatient}, le site \href{https://texample.net/tikz/examples/}{TikZ examples} ou \href{https://www.geogebra.org/}{Geogebra} peuvent vous aider à réaliser la figure de vos rêve.
+      
+      \begin{figure}
+        \centering
+        \includegraphics[width = 0.3\textwidth]{logo-master.png}
+        \caption{Un magnifique logo.\label{fig:logo}}
+      \end{figure}
+      
+      \begin{figure}
+        \centering
+        \begin{tikzpicture}
+          \node (logo) at (0,0) {\includegraphics[scale = 0.3]{logo-master.png}};
+          \node [below = -0.2cm of logo] (master) {\Large\textsf{MASTER}};
+          \node [below = -0.2cm of master] () {\Large\textcolor{bleu!80!black}{\textsf{\textbf{INFORMATIQUE}}}};
+        \end{tikzpicture}
+        \caption{Magnifique dessin en tikz \textcolor{magenta}{\ding{170}\ding{170}\ding{170}}.\label{fig:tikz}}
+      \end{figure}
+      
+      \begin{figure}
+        \centering
+        \begin{tikzpicture}[scale = 0.75, rotate = -90, yscale = -1]
+          \draw (0, 0) rectangle (5, 1);
+          \foreach \x in {1, 2, ..., 5}
+            \draw (\x, 0) -- (\x, 1);
+            
+          \draw (0.5, 0.5) node {1};
+          \draw (1.5, 0.5) node {5};
+          \draw (2.5, 0.5) node {3};
+          \draw (3.5, 0.5) node {6};
+          \draw (4.5, 0.5) node {4};
+          
+          \draw[magenta, thick] (2, 1) -- (2, 0);
+          
+          \draw[magenta, ->] (1, -0.2) -- (0, -1.8);
+          \draw[magenta, ->] (3.5, -0.2) -- (4.5, -1.8);
+          
+          \begin{scope}[yshift=-0.5cm]
+            \draw (-1, -2.5) rectangle (1, -1.5);
+            \draw (3, -2.5) rectangle (6, -1.5);
+            \foreach \x in {0, 4, 5}
+              \draw (\x, -2.5) -- (\x, -1.5);
+              
+            \draw (-0.5, -2) node {1};
+            \draw (0.5, -2) node {5};
+            \draw (3.5, -2) node {3};
+            \draw (4.5, -2) node {6};
+            \draw (5.5, -2) node {4};
+            
+            \draw[magenta, thick] (0, -1.5) -- (0, -2.5);
+            \draw[magenta, thick] (4, -1.5) -- (4, -2.5);
+            
+            \begin{scope}[yshift=-0.5cm]
+              \draw[magenta, ->] (-0.5, -2.2) -- (-1, -3.8);
+              \draw[magenta, ->] (0.5, -2.2) -- (1, -3.8);
+              
+              \draw (-1.5, -5) rectangle (-0.5, -4);
+              \draw (0.5, -5) rectangle (1.5, -4);
+              
+              \draw (-1, -4.5) node {1};
+              \draw (1, -4.5) node {5};
+              
+              \draw[magenta, ->] (3.5, -2.2) -- (3, -3.8);
+              \draw[magenta, ->] (5, -2.2) -- (5.5, -3.8);
+              
+              \draw (2.5, -5) rectangle (3.5, -4);
+              \draw (4.5, -5) rectangle (6.5, -4) (5.5, -5) -- (5.5, -4);
+              
+              \draw (3, -4.5) node {3};
+              \draw (5, -4.5) node {6};
+              \draw (6, -4.5) node {4};
+              
+              \draw[magenta, thick] (5.5, -5) -- (5.5, -4);
+              
+              \begin{scope}[yshift=-0.5cm]
+                \draw[vert sapin, <-] (-0.5, -6.3) -- (-1, -4.7);
+                \draw[vert sapin, <-] (0.5, -6.3) -- (1, -4.7);
+                
+                \draw (-1, -7.5) rectangle (1, -6.5) (0, -7.5) -- (0, -6.5);
+                \draw (-0.5, -7) node {1};
+                \draw (0.5, -7) node {5};
+                
+                \draw[magenta, ->] (5, -4.7) -- (4.5, -6.3);
+                \draw[magenta, ->] (6, -4.7) -- (6.5, -6.3);
+                
+                \draw (4, -7.5) rectangle (5, -6.5);
+                \draw (6, -7.5) rectangle (7, -6.5);
+                
+                \draw (4.5, -7) node {6};
+                \draw (6.5, -7) node {4};
+                
+                \begin{scope}[yshift=-0.5cm]
+                  \draw[vert sapin, <-] (5, -8.8) -- (4.5, -7.2);
+                  \draw[vert sapin, <-] (6, -8.8) -- (6.5, -7.2);
+                  
+                  \draw (4.5, -10) rectangle (6.5, -9) (5.5, -10) -- (5.5, -9);
+                  \draw (6, -9.5) node {6};
+                  \draw (5, -9.5) node {4};
+                  
+                  \begin{scope}[yshift=-0.5cm]
+                    \draw[vert sapin, <-] (3.5, -11.3) -- (3, -3.7);
+                    \draw[vert sapin, <-] (5, -11.3) -- (5.5, -9.7);
+                    \draw (3, -12.5) rectangle (6, -11.5) (4, -12.5) -- (4, -11.5) (5, -12.5) -- (5, -11.5);
+                    
+                    \draw (3.5, -12) node {3};
+                    \draw (4.5, -12) node {4};
+                    \draw (5.5, -12) node {6};
+                    
+                    \begin{scope}[yshift=-0.5cm]
+                      \draw[vert sapin, <-] (1, -13.8) -- (0, -6.2);
+                      \draw[vert sapin, <-] (3.5, -13.8) -- (4.5, -12.2);
+                      
+                      \draw (0, -15) rectangle (5, -14);
+                      \foreach \x in {1, 2, ..., 5}
+                        \draw (\x, -15) -- (\x, -14);
+                      
+                      \draw (0.5, -14.5) node {1};
+                      \draw (1.5, -14.5) node {3};
+                      \draw (2.5, -14.5) node {4};
+                      \draw (3.5, -14.5) node {5};
+                      \draw (4.5, -14.5) node {6};
+                    \end{scope}
+                  \end{scope}
+                \end{scope}
+              \end{scope}
+            \end{scope}
+          \end{scope}
+        \end{tikzpicture}
+        \caption{Tri par fusion dessiné avec tikz \textcolor{magenta}{\ding{170}\ding{170}\ding{170}}.\label{fig:sort}}
+      \end{figure}
+        
+      Pour faire de beaux tableaux, vous pouvez utiliser l'environnement \verb|table|. Un exemple très simple vous est donné dans la table \ref{tab:ex}.
+      
+      \begin{table}
+        \centering
+        \begin{tabular}{l c r}
+          \hline
+          \multicolumn{3}{c}{Alignement}\\
+          Gauche (\verb|l|) & Centre (\verb|c|) & Droit (\verb|r|)\\\hline
+          Bla & Bla & Bla\\
+          Riri & Fifi & Loulou\\
+          Toto & Tata & Titi\\
+          Texte aligné à gauche & Texte centré & Texte aligné à droite\\\hline
+        \end{tabular}
+        \caption{Exemple de tableau.\label{tab:ex}}
+      \end{table}
+      
+    \section{Mathématiques}
+        
+      Vous pouvez écrire de très belle formules avec \Latex.
+      
+      $\begin{array}{l c l}
+        Z = \min c\cdotp x & & Z_{LR}(\lambda) = \min c\cdotp x + \lambda^T\cdotp(b_h - A_hx)\\
+        \mbox{s.t. }
+        \left\{
+          \begin{array}{l}
+            A_hx \geq b_h\\
+            A_ex \geq b_e\\
+            x \in \{0, 1\}
+          \end{array}
+        \right.
+        & \longrightarrow
+        & \mbox{s.t. }
+        \left\{
+          \begin{array}{l}
+            A_ex \geq b_e\\
+            x \in \{0, 1\}
+          \end{array}
+        \right.
+      \end{array}$
+      
+      
+    \section{Algorithmes}
+        
+      \begin{algorithm}
+        \begin{algorithmic}
+          \STATE tableau d'entiers tab \COMMENT{tableau d'entiers}
+          \STATE int $i$ \COMMENT{indice de parcours}
+          \STATE int $m$ \COMMENT{valeur maximale du tableau}
+          \STATE
+          \STATE $m \leftarrow$ tab[1]
+          \FOR{$i$ \FROM 2 \TO length(tab)}
+            \IF{$m <$ tab[$i$]}
+              \STATE $m \leftarrow$ tab[$i$]
+            \ENDIF
+            \STATE \PRINT ``Le maximum est " + $m$
+            \RETURN $m$
+          \ENDFOR
+        \end{algorithmic}
+        \caption[Algorithme 1 (nom dans la liste des algorithmes)]{Met dans $m$ la valeur maximale du tableau tab.\label{ag:algo1}}
+      \end{algorithm}
+      
+      L'algorithme \ref{ag:algo1} utilise le package \verb|algorithmic| dont la francisation des termes se trouve dans le fichier \verb+algo.sty+.
+      
+      \begin{algorithm}
+        \begin{C}
+int max(int* tab, int n) {
+  int i; // indice de parcours
+  int m; // valeur maximale du tableau
+  
+  m = tab[0];
+  for (i = 1; i < n; i++) {
+    if (m < tab[i]) {
+      m = tab[i];
+    }
+  }
+  
+  printf("Le maximum est %d", m),
+  return m;
+}
+        \end{C}
+        \caption[Algo en C]{Retourne la valeur maximale du tableau tab.\label{ag:algoc}}
+      \end{algorithm}
+      
+      \begin{algorithm}
+        \begin{PseudoCode}
+max(tableau d'entiers tab, entier n) {
+  entier i // indice de parcours
+  entier m // valeur maximale du tableau
+  
+  m <- tab[1]
+  for i from 2 to n {
+    if (m < tab[i]) {
+      m <- tab[i]
+    }
+  }
+  
+  print("Le maximum est ", m),
+  return m;
+}
+        \end{PseudoCode}
+        \caption[Algo en PseudoCode]{Retourne la valeur maximale du tableau tab.\label{ag:algop}}
+      \end{algorithm}
+      
+      \begin{algorithm}
+        \begin{Java}
+int max(int[] tab, int n) {
+  int i; // indice de parcours
+  int m; // valeur maximale du tableau
+  
+  m = tab[0];
+  for (i = 1; i < n; i++) {
+    if (m < tab[i]) {
+      m = tab[i];
+    }
+  }
+  
+  System.out.println("Le maximum est " + m),
+  return m;
+}
+        \end{Java}
+        \caption[Algo en Java]{Retourne la valeur maximale du tableau tab.\label{ag:algoj}}
+      \end{algorithm}
+      
+      Les algorithmes \ref{ag:algoc} en C, \ref{ag:algop} en pseudo code, et \ref{ag:algoj} en Java utilisent le package \verb|lstlistings|. La coloration syntaxique utilise le fichier \verb|colorationSyntaxique.sty| dans lequel sont définies les couleurs et les mot-clés. Vous pouvez modifier le fichier \verb|colorationSyntaxique.sty| pour ajouter de nouveaux mot-clés ou y ajouter un langage, pour le moment seuls C, Java, Python, Shell, R et un pseudo code sont disponibles.
+      
+    \section{Commandes personnelles}
+      
+      Quand on utilise souvent les mêmes termes, macros,\etc on peut créer de nouvelles macros. Par exemple si on utilise souvent la macro \verb|\mathcal| on peut définir une nouvelle macro :
+      \begin{verbatim}
+\newcommand{\mc}[1]{\ensuremath{\mathcal{#1}}}\end{verbatim}
+        
+      \newcommand{\mc}[1]{\ensuremath{\mathcal{#1}}}
+      
+      Et après on peut l'utiliser pour écrire \mc{C} à la place de $\mathcal{C}$.
+      
+      Si vous utilisez souvent le terme programmation par contraintes, vous pouvez définir une macro pour cela :
+      \begin{verbatim}
+\newcommand{\ppc}{programmation par contraintes\xspace}\end{verbatim}
+        
+      \newcommand{\ppc}{programmation par contraintes\xspace}
+      
+      Comme ça à chaque fois que je souhaite écrire \ppc il suffit que j'utilise la macro \verb|\ppc| et cela est bien sympathique, tout comme la \ppc.
+      
+    \pageblanche
+    \appendix
+    
+    \section{Compléments sur la bibliographie} 
+      Du point de vue forme, nous pouvons classer les documents scientifiques en trois catégories, hiérarchisés par ordre d'importance comme suit:
+      
+      \begin{enumerate}
+        \item Les documents relus par une commission d'experts: ce sont des articles ou des thèses qui ont été publiés après que des lecteurs indépendants et compétents aient relu le document en question. C'est le cas par exemple des thèses de doctorat, des articles dans des revues scientifiques ou des conférences avec comité de lecture;
+        \item Les documents édités mais non relus par une commission d'experts: ce sont les documents qui ont subi un processus d'édition pour la forme, mais dont le contenu scientifique n'a pas été relu par un comité indépendant. C'est le cas par exemple des livres scientifiques;
+        \item Les documents non relus par des experts indépendants: ce sont des documents qui engagent uniquement les auteurs. C'est le cas par exemple des rapports de recherche, rapports techniques, \etc
+      \end{enumerate}
+      
+      Du point de vue qualité, nous pouvons classer les documents scientifiques en sept catégories sans hiérarchie particulière:
+      \begin{enumerate}
+        \item  Document fondamental: il apporte une réelle plus value dans le domaine, une nouveauté scientifique non connue jusqu'à sa parution, sur laquelle se basera d'autres travaux;
+        \item  Document formel: c'est un document rédigé avec un langage mathématique, assez précis pour s'assurer de sa correction, et pouvant être reproduit;
+        \item  Document incrémental: un  document qui apporte encore une nouvelle solution, ou une amélioration d'une précédente, à un problème connu dans un sujet intéressant;
+        \item  Document empirique: il décrit des expériences massives et fait des conclusions en se basant sur des observations statistiques;
+        \item  Document conceptuel: un document qui apporte une nouvelle pensée, une nouvelle approche, une nouvelle méthode, une nouvelle abstraction. Ce n'est pas forcément un document qui apporte une solution, mais il apporte des concepts et des idées;
+        \item Document {\it survey}: un document qui synthétise l'état de l'art d'un domaine;
+        \item Document d'ingénierie : un document qui utilise des connaissances fondamentales dans un domaine pour proposer une solution pratique à un problème complexe et intéressant.
+      \end{enumerate}
+        
+  \pageblanche
+  \bibliographystyle{apalike-fr}
+  \bibliography{biblio}
+
+\end{document}

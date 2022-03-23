@@ -1,0 +1,313 @@
+% \iffalse meta-comment
+% vim: textwidth=75
+%<*internal>
+\iffalse
+%</internal>
+%<*readme>
+|-------:| ---------------------------------------------------------------------
+|rapport:| This package extends the article document class for students reports.
+| Author:| Marie Pelleau
+| E-mail:| marie.pelleau@univ-cotedazur.fr
+|License:| Released under the LaTeX Project Public License v1.3c or later
+|    See:| http://www.latex-project.org/lppl.txt
+
+
+Short description:
+This package extends the article document class for students reports.
+
+%</readme>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+-------:| ---------------------------------------------------------------------
+rapport:| This package extends the article document class for students reports.
+ Author:| Marie Pelleau
+ E-mail:| marie.pelleau@univ-cotedazur.fr
+License:| Released under the LaTeX Project Public License v1.3c or later
+    See:| http://www.latex-project.org/lppl.txt
+
+\endpreamble
+\postamble
+
+Copyright (C) 2019-2020 by Marie Pelleau <marie.pelleau@univ-cotedazur.fr>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+Marie Pelleau.
+
+This work is inspired by the exercice package of Arnaud Malapert.
+
+This work consists of the file rapport.dtx and a Makefile.
+Running "make" generates the derived files README, rapport.pdf and rapport.cls.
+Running "make inst" installs the files in the user's TeX tree.
+Running "make install" installs the files in the local TeX tree.
+
+\endpostamble
+
+\usedir{tex/latex/rapport}
+\generate{
+  \file{\jobname.cls}{\from{\jobname.dtx}{class}}
+}
+%</install>
+%<install>\endbatchfile
+%<*internal>
+\usedir{source/latex/rapport}
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+\usedir{doc/latex/rapport}
+\generate{
+  \file{README.txt}{\from{\jobname.dtx}{readme}}
+}
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{rapport.dtx}
+%</driver>
+%<class>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<class>\ProvidesClass{rapport}
+%<*class>
+%    [2020/03/23 v1.00 porting the previous class (cls) to a documented source file (dtx).]
+    [2021/11/22 v1.10 adding the titlepageneglish macro.]
+%</class>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
+\usepackage[numbered]{hypdoc}
+
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \GetFileInfo{\jobname.dtx}
+% \DoNotIndex{\newcommand,\newenvironment}
+%
+%\title{\textsf{rapport} ---extends the article document class for students reports.\thanks{This file
+%   describes version \fileversion, last revised \filedate.}
+%}
+%\author{Marie Pelleau\thanks{E-mail: marie.pelleau@univ-cotedazur.fr}}
+%\date{Released \filedate}
+%
+%\maketitle
+%
+%\changes{v1.00}{2020/03/23}{First public release}
+%
+% \begin{abstract}
+% This package configures and extends the \textsf{report} document class.
+% \end{abstract}
+%
+% \section{Usage}
+%
+% In this section, we briefly recall the usage of the most used commands when writing a report.
+% Package options are described in Section~\ref{sec:options}.
+% Commands that configure the different report informations are described Section~\ref{sec:info}. \\
+%
+%\StopEventually{
+%  \PrintChanges
+%  \PrintIndex
+%}
+%
+% \section{Implementation}
+%
+%    \begin{macrocode}
+%<*class>
+\LoadClass[a4paper, twoside]{article}
+%    \end{macrocode}
+
+% \subsection{Class Options}
+% \label{sec:options}
+% Options are passed to the \textsl{rapport} package.
+% Pass all options to the report class.
+%    \begin{macrocode}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
+%    \end{macrocode}
+% Process options.
+%    \begin{macrocode}
+\ProcessOptions\relax
+%    \end{macrocode}
+
+% \subsection{Requirements}
+
+% It loads additional packages used for formatting.
+%    \begin{macrocode}
+\RequirePackage{geometry,tikz,afterpage}
+\RequirePackage{titling,fancyhdr}
+\RequirePackage{graphicx}
+\RequirePackage{enumitem}
+\RequirePackage{natbib}
+\RequirePackage{amsthm}
+\RequirePackage{xspace}
+%    \end{macrocode}
+% Moreover, this package declare has a graphic path the directory \verb:img/:
+%    \begin{macrocode}
+\graphicspath{img/}
+%    \end{macrocode}
+%
+% \subsection{General Information}
+% \label{sec:info}
+% The user must define these commands that specify informations about the report.
+% \subsubsection{Author Information}
+% \begin{macro}{\author}
+% The author of the report. If there are several authors separate them with a comma.\\
+% |\author{Tweedledee,Tweedledum}|
+\def\@author{No authors given}
+% \end{macro}
+% \begin{macro}{\supervisor}
+% The supervisor of the work. If there are several supervisors separate them with a comma.\\
+% |\supervisor{Huey,Dewey,Louie}|
+\def\@supervisor{No supervisor given}
+\newcommand{\supervisor}[1]{\gdef\@supervisor{#1}}
+% \end{macro}
+% \begin{macro}{\universityname}
+% The name of the university. By default it is set to ``Universit\'e C\^ote d'Azur".\\
+% |\universityname{Name of your university}|\\
+% You can of course put several universities if for instance you are in Erasmus.
+\def\@universityname{Universit\'e C\^ote d'Azur}
+\newcommand{\universityname}[1]{\gdef\@universityname{#1}}
+% \end{macro}
+% \begin{macro}{\universitylogo}
+% The path to an image with the logo of the university. By default it is set to ``logo-uca.png". If there are several universities separate them with a comma.\\
+% |\universitylogo{my-university-logo.png}|
+\def\@universitylogo{logo-uca.png}
+\newcommand{\universitylogo}[1]{\gdef\@universitylogo{#1}}
+% \end{macro}
+% \begin{macro}{\formation}
+% The name of the formation. By default it is set to ``Master Informatique".\\
+% |\formation{Name of your formation}|
+\def\@formation{Master Informatique}
+\newcommand{\formation}[1]{\gdef\@formation{#1}}
+% \end{macro}
+% \begin{macro}{\formationlogo}
+% The logo of the formation. By default it is set to ``logo\_haut.png".\\
+% |\formationlogo{my-formation-logo.png}|
+\def\@formationlogo{logo_haut.png}
+\newcommand{\formationlogo}[1]{\gdef\@formationlogo{#1}}
+% \end{macro}
+% \begin{macro}{\autresLogos}
+% Other logos that you wish to put on the cover page, for instance a company for which you work or a research laboratory. If there are several logos separate them with a comma.\\
+% |\autresLogos{logo1.png,logo2.png}|
+\def\@autresLogos{}
+\newcommand{\autresLogos}[1]{\gdef\@autresLogos{#1}}
+% \end{macro}
+
+
+% \subsubsection{Document Information}
+% \begin{macro}{\type}
+% The type of report. By default it is set to ``TER".\\
+\def\@type{TER}
+\newcommand{\type}[1]{\gdef\@type{#1}}
+% |\type{intership}|
+% \end{macro}
+% \begin{macro}{\title}
+% The title of the report.\\
+% |\title{Title of the report}|
+% \end{macro}
+% \begin{macro}{\date}
+% The date or period during which the work was done.\\
+% |\date{Second semester of 2019-2020}|
+% \end{macro}
+% \changes{v1.10}{2021/11/21}{Adding macro for english title page}
+\newif\if@englishtitlepage
+\@englishtitlepagefalse
+\newcommand{\englishTitlePage}{\global\@englishtitlepagetrue}
+% \begin{macro}{\englishTitlePage}
+% By default, the title page is in french to set it to english type:\\
+% |\englishTitlePage|
+% \end{macro}
+\def\pageblanche{
+    \newpage
+    \thispagestyle{empty}
+    \mbox{}
+    \newpage
+}
+% \begin{macro}{\maketitle}
+% The macro |\maketitle| has been redefined in order to generate the cover page.
+% \end{macro}
+\renewcommand{\maketitle}{
+    \thispagestyle{empty}
+    \newgeometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+    
+    \foreach \img in \@universitylogo {
+      \includegraphics[height=2.5cm]{\img}
+    }
+    \hfill
+    \includegraphics[height=2.5cm]{\@formationlogo}
+    
+    {\centering
+    
+    \vspace*{\fill}\noindent
+    {\LARGE\textsc{\if@englishtitlepage\@type\ report \else Rapport de \@type\fi}}
+    
+    \vspace{3cm}\noindent\rule{0.75\linewidth}{0.5mm}\\\vspace{0.5cm}
+    {\Huge\textbf{\@title}}
+    \\\vspace{0.5cm}\rule{0.75\linewidth}{0.5mm}
+    
+    
+    \vspace{3cm}
+    {\Large
+    \begin{minipage}[t]{0.4\linewidth}
+    \textit{\if@englishtitlepage Prepared by\else Réalisé par\fi}\\
+    \foreach \aut in \@author {
+      \textbf{\aut\\}
+    }
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.4\linewidth}
+    \begin{flushright}
+    \textit{\if@englishtitlepage Supervised by\else Encadré par\fi}\\
+    \foreach \sup in \@supervisor {
+      \sup\\
+    }
+    \end{flushright}
+    \end{minipage}
+    }
+    
+    \if\@autresLogos\@empty \else
+      \vfill
+      \foreach \img in \@autresLogos {
+        \includegraphics[height=1.5cm]{\img}\hfill
+      }
+    \fi
+    
+    \vspace*{\fill}\noindent
+    {\large \@formation\\\if@englishtitlepage at \else à \fi \@universityname\\\@date}
+    
+    }
+    
+    \clearpage
+    \restoregeometry
+    \pageblanche
+    \setcounter{page}{1}
+}
+
+%\Finale
+\endinput
+

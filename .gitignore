@@ -1,0 +1,23 @@
+.DS_Store
+
+#Fichiers générés par LaTeX
+
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.glo
+*.gls
+*.hd
+*.idx
+*.ilg
+*.ind
+*.ins
+*.loe
+*.lof
+*.log
+*.lot
+*.out
+*.synctex.gz
+*.toc
