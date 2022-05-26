@@ -28,7 +28,7 @@
 \RequirePackage{natbib}
 \RequirePackage{amsthm}
 \RequirePackage{xspace}
-\graphicspath{img/}
+\graphicspath{{./img/}}
 \def\@author{No authors given}
 \def\@supervisor{No supervisor given}
 \newcommand{\supervisor}[1]{\gdef\@supervisor{#1}}
