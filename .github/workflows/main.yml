@@ -11,9 +11,11 @@ jobs:
         with:
           root_file: rapport-example.tex
           latexmk_shell_escape: true
-      - name: Upload PDF file
-        uses: actions/upload-artifact@v3
-        with:
-          name: PDF
-          path: rapport-example.pdf
+      - name: Commit files  
+        run:
+          git config --local user.name actions-user
+          git config --local user.email "actions@github.com"
+          git add rapport-example.pdf
+          git commit -m "add generated pdf $(date)"
+          git push -f origin main
           
